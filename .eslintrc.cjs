@@ -18,6 +18,12 @@ module.exports = {
       {
         ignores: ['index'] //需要忽略的组件名
       }
+    ],
+    'prettier/prettier': [
+      'warn',
+      {
+        singleQuote: true
+      }
     ]
   }
 }

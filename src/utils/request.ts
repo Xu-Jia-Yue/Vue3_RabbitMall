@@ -6,13 +6,13 @@ const instance = axios.create({
 })
 // axios请求拦截器
 instance.interceptors.request.use(
-  config => config,
-  err => Promise.reject(err)
+  (config) => config,
+  (err) => Promise.reject(err)
 )
 // axios响应拦截器
 instance.interceptors.response.use(
-    res => res.data,
-    err => Promise.reject(err)
+  (res) => res.data,
+  (err) => Promise.reject(err)
 )
 
 export default instance

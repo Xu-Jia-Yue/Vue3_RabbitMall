@@ -3,6 +3,8 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+//引入样式
+import '@/styles/common.scss'
 import App from './App.vue'
 import router from './router'
 
