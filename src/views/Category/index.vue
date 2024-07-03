@@ -1,10 +1,9 @@
 <script setup>
 import { useSubCategory } from './composables/useSubCategory'
 import { useBanner } from './composables/useBanner'
-import GoodsItem from '../Home/components/GoodsItem.vue'
+import GoodsItem from '@/components/GoodsItem.vue'
 const { subCategory } = useSubCategory()
 const { bannerList } = useBanner()
-console.log(subCategory)
 </script>
 
 <template>
@@ -30,7 +29,7 @@ console.log(subCategory)
         <h3>全部分类</h3>
         <ul>
           <li v-for="i in subCategory.children" :key="i.id">
-            <RouterLink to="/">
+            <RouterLink :to="`/category/sub/${i.id}`">
               <img :src="i.picture" />
               <p>{{ i.name }}</p>
             </RouterLink>

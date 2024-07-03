@@ -8,3 +8,11 @@ export const getCategoryApi = () => {
 export const getSubCategoryApi = (id: AxiosRequestConfig<string>) => {
   return instance.get('/category', { params: { id } })
 }
+// 获取一级分类中筛选后的二级分类
+export const getCategoryFilterAPI = (id: AxiosRequestConfig<string>) => {
+  return instance.get('/category/sub/filter', { params: { id } })
+}
+// 发送请求以获取分类后的商品列表
+export const getFilterGoodsAPI = (data: AxiosRequestConfig<object>) => {
+  return instance.post('/category/goods/temporary', data)
+}
