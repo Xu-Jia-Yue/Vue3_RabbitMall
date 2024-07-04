@@ -1,4 +1,4 @@
 import instance from '@/utils/request'
-export const getGoodsApi = () => {
+export const getHomeGoodsApi = () => {
   return instance.get('/home/goods')
 }

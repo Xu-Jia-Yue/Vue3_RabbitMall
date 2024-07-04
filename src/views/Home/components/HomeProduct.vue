@@ -1,11 +1,11 @@
 <script setup>
 import HomePanel from './HomePanel.vue'
 import GoodsItem from '@/components/GoodsItem.vue'
-import { getGoodsApi } from '@/apis/GoodsAPI'
+import { getHomeGoodsApi } from '@/apis/GoodsAPI'
 import { ref, onMounted } from 'vue'
 const goodsProduct = ref([])
 const getGoods = async () => {
-  const { result } = await getGoodsApi()
+  const { result } = await getHomeGoodsApi()
   goodsProduct.value = result
 }
 onMounted(() => {
@@ -17,7 +17,7 @@ onMounted(() => {
   <div class="home-product">
     <HomePanel :title="cate.name" v-for="cate in goodsProduct" :key="cate.id">
       <div class="box">
-        <RouterLink class="cover" to="/">
+        <RouterLink class="cover" :to="`category/${cate.id}`">
           <img :src="cate.picture" />
           <strong class="label">
             <span>{{ cate.name }}馆</span>

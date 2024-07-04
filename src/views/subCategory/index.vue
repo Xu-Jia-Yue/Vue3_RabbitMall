@@ -21,19 +21,17 @@ const reqData = ref({
 const goodsList = ref([])
 const getFilterGoods = async (data) => {
   const { result } = await getFilterGoodsAPI(data)
-  console.log(result)
   goodsList.value = result.items
 }
 // 筛选改了
 const tabChange = () => {
-  console.log('tab切换了', reqData.value.sortField)
+  //   console.log('tab切换了', reqData.value.sortField)
   reqData.value.page = 1
   getFilterGoods(reqData.value)
 }
 // 无限加载更多
 const disabled = ref(false)
 const load = async () => {
-  console.log('加载更多数据咯')
   // 获取下一页的数据
   reqData.value.page++
   const res = await getFilterGoodsAPI(reqData.value)
