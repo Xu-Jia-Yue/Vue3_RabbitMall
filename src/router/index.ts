@@ -39,7 +39,7 @@ const router = createRouter({
     }
   ]
 })
-router.afterEach((to, from, next) => {
+router.afterEach(() => {
   window.scrollTo(0, 0)
 })
 
