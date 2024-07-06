@@ -7,7 +7,7 @@ import { useUserStore } from '@/stores/Userstore'
 const userStore = useUserStore()
 const router = useRouter()
 const userInfo = ref({
-  account: 'xiaotuxian001',
+  account: 'cdshi0074',
   password: '123456',
   agree: true
 })

@@ -1,16 +1,20 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/Userstore'
+import { useCartStore } from '@/stores/CartStore'
 import { ref } from 'vue'
+const cartStore = useCartStore()
 const router = useRouter()
 const userStore = useUserStore()
 const isLogin = ref(false)
 if (userStore.userInfo.token) {
   isLogin.value = true
+  cartStore.updateCartList()
 }
 const exitLogin = () => {
   userStore.clearUserInfo()
-  router.replace('/login')
+  cartStore.clearCartList()
+  window.location.reload()
 }
 </script>
 

@@ -2,15 +2,42 @@
 import { getGoodsDetailApi } from '@/apis/GoodsDetailAPI'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import { useCartStore } from '@/stores/CartStore'
 import DetailHot from './components/DetailHot.vue'
 import DetailImg from './components/DetailImgs.vue'
 import XtxSku from '@/components/XtxSku/index.vue'
+import { ElMessage } from 'element-plus'
 const route = useRoute()
 const goodsDetail = ref({})
 const getGoodsDetail = async (id) => {
   const { result } = await getGoodsDetailApi(id)
   goodsDetail.value = result
 }
+// 添加购物车逻辑
+const cartStore = useCartStore()
+const count = ref(1)
+const skuObj = ref({})
+const skuChange = (sku) => {
+  skuObj.value = sku
+}
+const addCart = () => {
+  if (skuObj.value.skuId) {
+    cartStore.addCart({
+      id: goodsDetail.value.id,
+      name: goodsDetail.value.name,
+      picture: goodsDetail.value.mainPictures[0],
+      price: goodsDetail.value.price,
+      count: count.value,
+      skuId: skuObj.value.skuId,
+      attrsText: skuObj.value.specText,
+      selected: true
+    })
+    ElMessage({ type: 'success', message: '添加成功' })
+  } else {
+    ElMessage({ type: 'warning', message: '请选择规格' })
+  }
+}
+
 onMounted(() => {
   getGoodsDetail(route.params.id)
 })
@@ -94,12 +121,12 @@ onBeforeRouteUpdate((to) => {
                 </dl>
               </div>
               <!-- sku组件 -->
-              <XtxSku :goods="goodsDetail" />
+              <XtxSku :goods="goodsDetail" @change="skuChange" />
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count" :min="1" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn"> 加入购物车 </el-button>
+                <el-button size="large" class="btn" @click="addCart"> 加入购物车 </el-button>
               </div>
             </div>
           </div>
