@@ -1,14 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import { getBannerApi } from '@/apis/Banner.API'
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { type bannerDataType } from '@/utils/TSinterface'
 const router = useRouter()
-const bannerList = ref([])
+const bannerList = ref([]) as any
 const getBanner = async () => {
-  const { result } = await getBannerApi()
+  const { result } = (await getBannerApi()) as any
   bannerList.value = result
 }
-const toOther = (item) => {
+const toOther = (item: bannerDataType) => {
   router.push(item.hrefUrl)
 }
 onMounted(() => {

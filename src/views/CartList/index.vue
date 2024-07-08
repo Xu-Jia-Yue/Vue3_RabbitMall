@@ -1,15 +1,12 @@
-<script setup>
-import { useCartStore } from '@/stores/CartStore.ts'
+<script setup lang="ts">
+import { useCartStore } from '@/stores/CartStore'
 const cartStore = useCartStore()
-const singleCheck = (i, selected) => {
-  cartStore.singleCheck(i.skuId, selected)
+const singleCheck = (skuId: string, selected: boolean) => {
+  cartStore.singleCheck(skuId, selected)
 }
-const allCheck = (selected) => {
+const allCheck = (selected: boolean) => {
   cartStore.allCheck(selected)
 }
-// const deleteGood = (i) => {
-//   cartStore.delCart(i.skuId)
-// }
 </script>
 
 <template>
@@ -35,7 +32,7 @@ const allCheck = (selected) => {
               <td>
                 <el-checkbox
                   v-model="i.selected"
-                  @change="(selected) => singleCheck(i, selected)"
+                  @change="(selected: boolean) => singleCheck(i.skuId, selected)"
                 />
               </td>
               <td>

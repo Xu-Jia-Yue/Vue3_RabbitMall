@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useCategoryStore } from '@/stores/CategoryStore'
 const categoryStore = useCategoryStore()
 </script>
@@ -17,7 +17,7 @@ const categoryStore = useCategoryStore()
         </RouterLink>
         <!-- 弹层layer位置 -->
         <div class="layer">
-          <h4>分类推荐 <small>根据您的购买或浏览记录推荐</small></h4>
+          <h4>分类推荐 <small>根据用户喜好推荐</small></h4>
           <ul>
             <li v-for="g in item.goods" :key="g.id">
               <RouterLink :to="`detail/${g.id}`">

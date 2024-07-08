@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { getGoodsDetailApi } from '@/apis/GoodsDetailAPI'
 import { useRoute, onBeforeRouteUpdate } from 'vue-router'
 import { ref, onMounted } from 'vue'
@@ -8,16 +8,16 @@ import DetailImg from './components/DetailImgs.vue'
 import XtxSku from '@/components/XtxSku/index.vue'
 import { ElMessage } from 'element-plus'
 const route = useRoute()
-const goodsDetail = ref({})
-const getGoodsDetail = async (id) => {
-  const { result } = await getGoodsDetailApi(id)
+const goodsDetail = ref({}) as any
+const getGoodsDetail = async (id: string) => {
+  const { result } = (await getGoodsDetailApi(id)) as any
   goodsDetail.value = result
 }
 // 添加购物车逻辑
 const cartStore = useCartStore()
 const count = ref(1)
-const skuObj = ref({})
-const skuChange = (sku) => {
+const skuObj = ref({}) as any
+const skuChange = (sku: any) => {
   skuObj.value = sku
 }
 const addCart = () => {
@@ -39,10 +39,10 @@ const addCart = () => {
 }
 
 onMounted(() => {
-  getGoodsDetail(route.params.id)
+  getGoodsDetail(route.params.id as string)
 })
 onBeforeRouteUpdate((to) => {
-  getGoodsDetail(to.params.id)
+  getGoodsDetail(to.params.id as string)
 })
 </script>
 

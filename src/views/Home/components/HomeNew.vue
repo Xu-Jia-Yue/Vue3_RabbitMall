@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import HomePanel from './HomePanel.vue'
 import { getNewApi } from '@/apis/NewAPI'
 import { ref, onMounted } from 'vue'
-const newList = ref([])
+const newList = ref([]) as any
 const getNew = async () => {
-  const { result } = await getNewApi()
+  const { result } = (await getNewApi()) as any
   newList.value = result
 }
 onMounted(() => {

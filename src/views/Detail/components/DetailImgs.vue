@@ -1,12 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useMouseInElement } from '@vueuse/core'
 // 鼠标进去修改大图
 const list = defineProps(['imgList'])
-const imageList = list.imgList
 // 1.小图切换大图显示
 const activeIndex = ref(0)
-const enterhandler = (i) => {
+const enterhandler = (i: number) => {
   activeIndex.value = i
 }
 
@@ -57,14 +56,14 @@ watch([elementX, elementY, isOutside], () => {
   <div class="goods-image">
     <!-- 左侧大图-->
     <div class="middle" ref="target">
-      <img :src="imageList[activeIndex]" alt="" />
+      <img :src="list.imgList[activeIndex]" alt="" />
       <!-- 蒙层小滑块 -->
       <div class="layer" v-show="!isOutside" :style="{ left: `${left}px`, top: `${top}px` }"></div>
     </div>
     <!-- 小图列表 -->
     <ul class="small">
       <li
-        v-for="(img, i) in imageList"
+        v-for="(img, i) in list.imgList"
         :key="i"
         @mouseenter="enterhandler(i)"
         :class="{ active: i === activeIndex }"
@@ -77,7 +76,7 @@ watch([elementX, elementY, isOutside], () => {
       class="large"
       :style="[
         {
-          backgroundImage: `url(${imageList[0]})`,
+          backgroundImage: `url(${list.imgList[0]})`,
           backgroundPositionX: `${positionX}px`,
           backgroundPositionY: `${positionY}px`
         }

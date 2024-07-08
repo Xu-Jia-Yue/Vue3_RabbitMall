@@ -1,8 +1,6 @@
 import instance from '@/utils/request'
-interface obj {
-  account: string
-  password: string
-}
-export const isLoginApi = (data: obj) => {
+import { type isLoginDataType } from '@/utils/TSinterface'
+// 登录接口
+export const isLoginApi = (data: isLoginDataType) => {
   return instance.post('/login', data)
 }

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useCategoryStore } from '@/stores/CategoryStore'
 const categoryStore = useCategoryStore()
 import { ref, onMounted } from 'vue'
@@ -9,6 +9,10 @@ onMounted(() => {
     top.value = document.documentElement.scrollTop
   }
 })
+const flag = ref(true)
+const toggleActive = (num: number) => {
+  flag.value = num ? true : false
+}
 </script>
 
 <template>
@@ -17,8 +21,11 @@ onMounted(() => {
       <RouterLink class="logo" to="/" />
       <!-- 导航区域 -->
       <ul class="app-header-nav">
+        <li class="home">
+          <RouterLink to="/" :class="{ active: flag }" @click="toggleActive(1)">首页</RouterLink>
+        </li>
         <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
-          <RouterLink active-class="active" :to="`/category/${item.id}`">{{
+          <RouterLink active-class="active" :to="`/category/${item.id}`" @click="toggleActive(0)">{{
             item.name
           }}</RouterLink>
         </li>

@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import HomePanel from './HomePanel.vue'
 import GoodsItem from '@/components/GoodsItem.vue'
 import { getHomeGoodsApi } from '@/apis/GoodsAPI'
 import { ref, onMounted } from 'vue'
-const goodsProduct = ref([])
+const goodsProduct = ref([]) as any
 const getGoods = async () => {
-  const { result } = await getHomeGoodsApi()
+  const { result } = (await getHomeGoodsApi()) as any
   goodsProduct.value = result
 }
 onMounted(() => {

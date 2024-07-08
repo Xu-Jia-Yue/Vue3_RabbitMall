@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { getHotGoodsApi } from '@/apis/DetailHotAPI'
 import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
@@ -8,17 +8,17 @@ const props = defineProps({
     type: Number
   }
 })
-const hotList = ref([])
-const getHotGoods = async (id) => {
-  const { result } = await getHotGoodsApi({
+const hotList = ref([]) as any
+const getHotGoods = async (id: string) => {
+  const { result } = (await getHotGoodsApi({
     id,
-    type: props.type,
+    type: props.type as number,
     limit: 3
-  })
+  })) as any
   hotList.value = result
 }
 onMounted(() => {
-  getHotGoods(route.params.id)
+  getHotGoods(route.params.id as string)
 })
 </script>
 

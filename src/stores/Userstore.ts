@@ -3,27 +3,24 @@ import { useCartStore } from './CartStore'
 import { ref } from 'vue'
 import { isLoginApi } from '@/apis/LoginAPI'
 import { memberCartApi } from '@/apis/CartAPI'
-interface obj {
-  account: string
-  password: string
-}
+import { type userDataType, type goodsDataType } from '@/utils/TSinterface'
+// 用户数据管理
 export const useUserStore = defineStore(
   'user',
   () => {
     const cartStore = useCartStore()
     const userInfo = ref({}) as any
     // 获取用户信息及合并购物车
-    const getUserInfo = async (data: obj) => {
+    const getUserInfo = async (data: userDataType) => {
       const { result } = (await isLoginApi(data)) as any
       userInfo.value = result
-      const memberData = cartStore.cartList.map((item: any) => {
+      const memberData = cartStore.cartList.map((item: goodsDataType) => {
         return {
           skuId: item.skuId,
           selected: item.selected,
           count: item.count
         }
       })
-      console.log(memberData)
       await memberCartApi(memberData)
       cartStore.updateCartList()
     }

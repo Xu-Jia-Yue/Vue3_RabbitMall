@@ -1,7 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { useCategoryStore } from '@/stores/CategoryStore'
+import { ref } from 'vue'
 import headerCart from './HeaderCart.vue'
 const categoryStore = useCategoryStore()
+// 处理导航栏的 首页 active问题
+const flag = ref(true)
+const toggleActive = (num: number) => {
+  flag.value = num ? true : false
+}
 </script>
 
 <template>
@@ -11,8 +17,11 @@ const categoryStore = useCategoryStore()
         <RouterLink to="/">小兔鲜</RouterLink>
       </h1>
       <ul class="app-header-nav">
+        <li class="home">
+          <RouterLink to="/" :class="{ active: flag }" @click="toggleActive(1)">首页</RouterLink>
+        </li>
         <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
-          <RouterLink active-class="active" :to="`/category/${item.id}`">{{
+          <RouterLink active-class="active" :to="`/category/${item.id}`" @click="toggleActive(0)">{{
             item.name
           }}</RouterLink>
         </li>

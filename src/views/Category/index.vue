@@ -1,12 +1,13 @@
-<script setup>
+<script setup lang="ts">
 import { useSubCategory } from './composables/useSubCategory'
 import { useBanner } from './composables/useBanner'
 import GoodsItem from '@/components/GoodsItem.vue'
 import { useRouter } from 'vue-router'
+import { type bannerDataType } from '@/utils/TSinterface'
 const router = useRouter()
 const { subCategory } = useSubCategory()
 const { bannerList } = useBanner()
-const toOther = (item) => {
+const toOther = (item: bannerDataType) => {
   router.push(item.hrefUrl)
 }
 </script>

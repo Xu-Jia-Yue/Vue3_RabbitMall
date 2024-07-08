@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 defineProps({
   goods: {
     type: Object,

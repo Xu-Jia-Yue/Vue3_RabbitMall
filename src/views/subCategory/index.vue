@@ -1,31 +1,31 @@
-<script setup>
+<script setup lang="ts">
 import { useRoute } from 'vue-router'
-import { getCategoryFilterAPI, getFilterGoodsAPI } from '@/apis/CategoryAPI'
+import { getCategoryFilterApi, getFilterGoodsApi } from '@/apis/CategoryAPI'
 import { ref, onMounted } from 'vue'
 import GoodsItem from '@/components/GoodsItem.vue'
+import { type filterGoodsDataType } from '@/utils/TSinterface'
 
 // 获取面包屑导航数据
 const route = useRoute()
-const categoryFilter = ref({})
-const getCategoryFilter = async (id) => {
-  const { result } = await getCategoryFilterAPI(id)
+const categoryFilter = ref({}) as any
+const getCategoryFilter = async (id: string) => {
+  const { result } = (await getCategoryFilterApi(id)) as any
   categoryFilter.value = result
 }
 // 获取筛选后的商品列表
 const reqData = ref({
-  categoryId: route.params.id,
+  categoryId: route.params.id as string,
   page: 1,
   pageSize: 20,
   sortField: 'publishTime'
-})
-const goodsList = ref([])
-const getFilterGoods = async (data) => {
-  const { result } = await getFilterGoodsAPI(data)
+}) as any
+const goodsList = ref([]) as any
+const getFilterGoods = async (data: filterGoodsDataType) => {
+  const { result } = (await getFilterGoodsApi(data)) as any
   goodsList.value = result.items
 }
 // 筛选改了
 const tabChange = () => {
-  //   console.log('tab切换了', reqData.value.sortField)
   reqData.value.page = 1
   getFilterGoods(reqData.value)
 }
@@ -34,7 +34,7 @@ const disabled = ref(false)
 const load = async () => {
   // 获取下一页的数据
   reqData.value.page++
-  const res = await getFilterGoodsAPI(reqData.value)
+  const res = (await getFilterGoodsApi(reqData.value)) as any
   goodsList.value = [...goodsList.value, ...res.result.items]
   // 加载完毕 停止监听
   if (res.result.items.length === 0) {
@@ -44,7 +44,7 @@ const load = async () => {
 
 onMounted(() => {
   getFilterGoods(reqData)
-  getCategoryFilter(route.params.id)
+  getCategoryFilter(route.params.id as string)
 })
 </script>
 

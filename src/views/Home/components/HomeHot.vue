@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import HomePanel from './HomePanel.vue'
 import { getHotApi } from '@/apis/HotAPI'
 import { ref, onMounted } from 'vue'
-const hotList = ref([])
+const hotList = ref([]) as any
 const getHot = async () => {
-  const { result } = await getHotApi()
+  const { result } = (await getHotApi()) as any
   hotList.value = result
 }
 onMounted(() => {

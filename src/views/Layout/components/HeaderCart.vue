@@ -1,11 +1,11 @@
-<script setup>
-import { useCartStore } from '@/stores/CartStore.ts'
+<script setup lang="ts">
+import { useCartStore } from '@/stores/CartStore'
 const cartStore = useCartStore()
 </script>
 
 <template>
   <div class="cart">
-    <a class="curr" href="javascript:;">
+    <a class="curr" href="javascript:;" @click="$router.push('cartList')">
       <i class="iconfont icon-cart"></i><em>{{ cartStore.cartList.length }}</em>
     </a>
     <div class="layer">

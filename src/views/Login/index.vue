@@ -1,6 +1,5 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
-
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/Userstore'
@@ -19,18 +18,18 @@ const rules = ref({
   ],
   agree: [
     {
-      validator: (rule, val, callback) => {
+      validator: (rule: any, val: any, callback: Function) => {
         return val ? callback() : new Error('请先同意协议')
       }
     }
   ]
 })
 // 获取表单组件实例
-const formRef = ref(null)
+const formRef = ref()
 // 判断登录逻辑
 const toLogin = () => {
   const { account, password } = userInfo.value
-  formRef.value.validate(async (valid) => {
+  formRef.value.validate(async (valid: boolean) => {
     if (valid) {
       await userStore.getUserInfo({ account, password })
       ElMessage({ type: 'success', message: '登录成功' })
