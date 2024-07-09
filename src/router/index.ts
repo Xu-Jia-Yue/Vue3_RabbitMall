@@ -5,7 +5,9 @@ import Home from '@/views/Home/index.vue'
 import Login from '@/views/Login/index.vue'
 import SubCategory from '@/views/subCategory/index.vue'
 import Detail from '@/views/Detail/index.vue'
-import cartList from '@/views/CartList/index.vue'
+import CartList from '@/views/CartList/index.vue'
+import Checkout from '@/views/Checkout/index.vue'
+import PayPage from '@/views/PayPage/index.vue'
 // 路由相关逻辑
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,7 +36,15 @@ const router = createRouter({
         },
         {
           path: 'cartList',
-          component: cartList
+          component: CartList
+        },
+        {
+          path: 'checkout',
+          component: Checkout
+        },
+        {
+          path: 'paypage',
+          component: PayPage
         }
       ]
     },
