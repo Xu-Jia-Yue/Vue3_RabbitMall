@@ -8,6 +8,10 @@ import Detail from '@/views/Detail/index.vue'
 import CartList from '@/views/CartList/index.vue'
 import Checkout from '@/views/Checkout/index.vue'
 import PayPage from '@/views/PayPage/index.vue'
+import Member from '@/views/Member/index.vue'
+import UserInfo from '@/views/Member/components/userInfo.vue'
+import MyOrder from '@/views/Member/components/myOrder.vue'
+
 // 路由相关逻辑
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -45,6 +49,20 @@ const router = createRouter({
         {
           path: 'paypage',
           component: PayPage
+        },
+        {
+          path: 'member',
+          component: Member,
+          children: [
+            {
+              path: '',
+              component: UserInfo
+            },
+            {
+              path: 'order',
+              component: MyOrder
+            }
+          ]
         }
       ]
     },

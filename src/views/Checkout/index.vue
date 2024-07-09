@@ -3,7 +3,9 @@ import { useAddressData } from './composables/useAddress'
 import { createOrderApi } from '@/apis/Order'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useCartStore } from '@/stores/CartStore'
 const router = useRouter()
+const cartStore = useCartStore()
 const {
   checkInfo,
   curAddress,
@@ -62,6 +64,7 @@ const createOrder = async () => {
     path: '/paypage',
     query: { id: orderId }
   })
+  cartStore.clearCartList()
 }
 </script>
 

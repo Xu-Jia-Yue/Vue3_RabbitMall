@@ -4,7 +4,7 @@ import { useUserStore } from '@/stores/Userstore'
 // 创建axios实例
 const instance = axios.create({
   baseURL: 'http://pcapi-xiaotuxian-front-devtest.itheima.net',
-  timeout: 5000
+  timeout: 10000
 })
 // axios请求拦截器
 instance.interceptors.request.use(
