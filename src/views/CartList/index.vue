@@ -1,11 +1,24 @@
 <script setup lang="ts">
 import { useCartStore } from '@/stores/CartStore'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/Userstore'
+import { ElMessage } from 'element-plus'
+const { userInfo } = useUserStore()
+const isLogin = userInfo.token
 const cartStore = useCartStore()
+const router = useRouter()
 const singleCheck = (skuId: string, selected: boolean) => {
   cartStore.singleCheck(skuId, selected)
 }
 const allCheck = (selected: boolean) => {
   cartStore.allCheck(selected)
+}
+const setOrder = () => {
+  if (isLogin) {
+    router.push('/checkout')
+  } else {
+    ElMessage({ type: 'warning', message: '下单前请先登录哦~~' })
+  }
 }
 </script>
 
@@ -89,9 +102,7 @@ const allCheck = (selected: boolean) => {
           <span class="red">¥ {{ cartStore.selectPriceTotal.toFixed(2) }} </span>
         </div>
         <div class="total">
-          <el-button size="large" type="primary" @click="$router.push('checkout')"
-            >下单结算</el-button
-          >
+          <el-button size="large" type="primary" @click="setOrder">下单结算</el-button>
         </div>
       </div>
     </div>

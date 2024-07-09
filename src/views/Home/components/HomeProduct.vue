@@ -3,6 +3,8 @@ import HomePanel from './HomePanel.vue'
 import GoodsItem from '@/components/GoodsItem.vue'
 import { getHomeGoodsApi } from '@/apis/GoodsAPI'
 import { ref, onMounted } from 'vue'
+import { useHomeStore } from '@/stores/HomeNav'
+const homeStore = useHomeStore()
 const goodsProduct = ref([]) as any
 const getGoods = async () => {
   const { result } = (await getHomeGoodsApi()) as any
@@ -20,8 +22,7 @@ onMounted(() => {
         <RouterLink class="cover" :to="`category/${cate.id}`">
           <img :src="cate.picture" />
           <strong class="label">
-            <span>{{ cate.name }}馆</span>
-            <span>{{ cate.saleInfo }}</span>
+            <span @click="homeStore.changeFlag(0)">{{ cate.name }}馆</span>
           </strong>
         </RouterLink>
         <ul class="goods-list">

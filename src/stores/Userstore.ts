@@ -14,8 +14,6 @@ export const useUserStore = defineStore(
     const getUserInfo = async (data: userDataType) => {
       const { result } = (await isLoginApi(data)) as any
       userInfo.value = result
-      console.log(result)
-
       const memberData = cartStore.cartList.map((item: goodsDataType) => {
         return {
           skuId: item.skuId,

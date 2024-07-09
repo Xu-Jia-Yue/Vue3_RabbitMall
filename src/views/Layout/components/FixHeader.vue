@@ -2,6 +2,8 @@
 import { useCategoryStore } from '@/stores/CategoryStore'
 const categoryStore = useCategoryStore()
 import { ref, onMounted } from 'vue'
+import { useHomeStore } from '@/stores/HomeNav'
+const homeStore = useHomeStore()
 // 定义当滑轮距离顶部70px时显示 实现黏贴顶部
 let top = ref()
 onMounted(() => {
@@ -9,10 +11,6 @@ onMounted(() => {
     top.value = document.documentElement.scrollTop
   }
 })
-const flag = ref(true)
-const toggleActive = (num: number) => {
-  flag.value = num ? true : false
-}
 </script>
 
 <template>
@@ -22,17 +20,25 @@ const toggleActive = (num: number) => {
       <!-- 导航区域 -->
       <ul class="app-header-nav">
         <li class="home">
-          <RouterLink to="/" :class="{ active: flag }" @click="toggleActive(1)">首页</RouterLink>
+          <RouterLink
+            to="/"
+            @click="homeStore.changeFlag(1)"
+            :class="{ active: homeStore.activeFlag }"
+            >首页</RouterLink
+          >
         </li>
         <li class="home" v-for="item in categoryStore.categoryList" :key="item.id">
-          <RouterLink active-class="active" :to="`/category/${item.id}`" @click="toggleActive(0)">{{
-            item.name
-          }}</RouterLink>
+          <RouterLink
+            active-class="active"
+            :to="`/category/${item.id}`"
+            @click="homeStore.changeFlag(0)"
+            >{{ item.name }}</RouterLink
+          >
         </li>
       </ul>
       <div class="right">
-        <RouterLink to="/">品牌</RouterLink>
-        <RouterLink to="/">专题</RouterLink>
+        <RouterLink to="/member/order">我的订单</RouterLink>
+        <RouterLink to="/member">会员中心</RouterLink>
       </div>
     </div>
   </div>
