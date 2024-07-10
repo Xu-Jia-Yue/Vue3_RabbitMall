@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import Layout from '@/views/Layout/index.vue'
 import Category from '@/views/Category/index.vue'
 import Home from '@/views/Home/index.vue'
@@ -14,7 +14,7 @@ import MyOrder from '@/views/Member/components/myOrder.vue'
 
 // 路由相关逻辑
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
