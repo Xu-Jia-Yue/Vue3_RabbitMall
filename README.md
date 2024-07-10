@@ -1,39 +1,52 @@
-# vue3_rabbit
+# vue3_小兔鲜商城项目
 
-This template should help get you started developing with Vue 3 in Vite.
+本项目是基于黑马程序员课程的《小兔鲜电商项目实战》进行ts重构和相关功能的添加的二创
 
-## Recommended IDE Setup
+## 项目起步
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- 项目安装
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
+```
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+- 项目编译【开发模式】
 
-```sh
+```
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+- 项目打包【生产模式】
 
-```sh
+```
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+- 检查和修复文件
 
-```sh
+```
 npm run lint
 ```
+
+## 代码主要结构说明
+
+- dist 发布打包后静态文件目录
+- node_modules node模块安装目录
+- public 公共目录
+- src 开发的目录
+  - apis 接口调用目录
+  - assets 项目静态文件目录
+  - components 组件文件
+  - directives 相关指令文件
+  - router 路由文件目录
+  - stores 数据状态管理
+  - style 样式文件
+  - utils 功能函数文件
+  - views 页面目录
+- main.js 项目核心文件
+- .gitignore 忽略编译生成的中间文件
+- babel.config.js babel配置文件
+- package-lock.json 模块与模块之间的依赖关系文件
+- package.json 项目描述文件
+- README.md 项目说明文档
+
