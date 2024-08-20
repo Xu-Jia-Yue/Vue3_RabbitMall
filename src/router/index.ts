@@ -1,16 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { defineAsyncComponent } from 'vue'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 import Layout from '@/views/Layout/index.vue'
-import Category from '@/views/Category/index.vue'
-import Home from '@/views/Home/index.vue'
-import Login from '@/views/Login/index.vue'
-import SubCategory from '@/views/subCategory/index.vue'
-import Detail from '@/views/Detail/index.vue'
-import CartList from '@/views/CartList/index.vue'
-import Checkout from '@/views/Checkout/index.vue'
-import PayPage from '@/views/PayPage/index.vue'
-import Member from '@/views/Member/index.vue'
-import UserInfo from '@/views/Member/components/userInfo.vue'
-import MyOrder from '@/views/Member/components/myOrder.vue'
+import NotFound from '@/components/NotFound/index.vue'
 
 // 路由相关逻辑
 const router = createRouter({
@@ -23,44 +16,46 @@ const router = createRouter({
         {
           path: '',
           name: 'home',
-          component: Home
+          component: defineAsyncComponent(() => import('@/views/Home/index.vue'))
         },
         {
           path: 'category/:id',
           name: 'category',
-          component: Category
+          component: defineAsyncComponent(() => import('@/views/Category/index.vue'))
         },
         {
           path: 'category/sub/:id',
-          component: SubCategory
+          component: defineAsyncComponent(() => import('@/views/subCategory/index.vue'))
         },
         {
           path: 'detail/:id',
-          component: Detail
+          component: defineAsyncComponent(() => import('@/views/Detail/index.vue'))
         },
         {
           path: 'cartList',
-          component: CartList
+          component: defineAsyncComponent(() => import('@/views/CartList/index.vue'))
         },
         {
           path: 'checkout',
-          component: Checkout
+          component: defineAsyncComponent(() => import('@/views/Checkout/index.vue'))
         },
         {
           path: 'paypage',
-          component: PayPage
+          component: defineAsyncComponent(() => import('@/views/PayPage/index.vue'))
         },
         {
           path: 'member',
-          component: Member,
+          component: defineAsyncComponent(() => import('@/views/Member/index.vue')),
           children: [
             {
               path: '',
-              component: UserInfo
+              component: defineAsyncComponent(
+                () => import('@/views/Member/components/userInfo.vue')
+              )
             },
             {
               path: 'order',
-              component: MyOrder
+              component: defineAsyncComponent(() => import('@/views/Member/components/myOrder.vue'))
             }
           ]
         }
@@ -68,11 +63,22 @@ const router = createRouter({
     },
     {
       path: '/login',
-      component: Login
+      component: defineAsyncComponent(() => import('@/views/Login/index.vue'))
+    },
+    {
+      path: '/:catchAll(.*)',
+      component: NotFound
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  NProgress.start() // 进度条开始
+  next()
+})
+
 router.afterEach(() => {
+  NProgress.done() // 进度条结束
   // 每次跳转页面 都回到页面首页
   window.scrollTo(0, 0)
 })

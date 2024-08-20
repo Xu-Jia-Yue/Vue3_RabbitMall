@@ -2,13 +2,18 @@
 import { useUserStore } from '@/stores/Userstore'
 import { getLikeListApi } from '@/apis/LikeAPI'
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import GoodsItem from '@/components/GoodsItem.vue'
 const userStore = useUserStore()
+const router = useRouter()
 const likeList = ref([]) as any
 const limit = 4
 const getLikeList = async () => {
   const { result } = (await getLikeListApi({ limit })) as any
   likeList.value = result
+}
+const editAddress = () => {
+  router.push('/checkout')
 }
 onMounted(() => {
   getLikeList()
@@ -33,7 +38,7 @@ onMounted(() => {
         <span class="iconfont icon-aq"></span>
         <p>安全设置</p>
       </a>
-      <a href="javascript:;">
+      <a href="javascript:;" @click="editAddress">
         <span class="iconfont icon-dw"></span>
         <p>地址管理</p>
       </a>

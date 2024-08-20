@@ -47,16 +47,11 @@ onBeforeRouteUpdate((to) => {
 </script>
 
 <template>
-  <div class="xtx-goods-page">
+  <div class="xtx-goods-page" v-if="goodsDetail">
     <div class="container" v-if="goodsDetail.details">
       <div class="bread-container">
         <el-breadcrumb separator=">">
           <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <!-- 
-            错误原因：goods一开始{}  {}.categories -> undefined  -> undefined[1]
-            1. 可选链的语法?. 
-            2. v-if手动控制渲染时机 保证只有数据存在才渲染
-           -->
           <el-breadcrumb-item :to="{ path: `/category/${goodsDetail.categories[1].id}` }">
             {{ goodsDetail.categories[1].name }}
           </el-breadcrumb-item>
@@ -160,6 +155,7 @@ onBeforeRouteUpdate((to) => {
       </div>
     </div>
   </div>
+  <div v-else>加载中...</div>
 </template>
 
 <style scoped lang="scss">

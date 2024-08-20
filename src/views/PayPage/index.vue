@@ -47,7 +47,7 @@ const payUrl = `${baseURL}pay/aliPay?orderId=${route.query.id}&redirect=${redire
         <div class="item">
           <p>支付平台</p>
           <a class="btn wx" href="javascript:;"></a>
-          <a class="btn alipay" :href="payUrl"></a>
+          <a class="btn alipay" :href="payUrl" target="_blank"></a>
         </div>
         <div class="item">
           <p>支付方式</p>

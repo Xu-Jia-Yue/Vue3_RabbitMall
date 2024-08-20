@@ -22,7 +22,12 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (res) => res.data,
   (err) => {
-    ElMessage({ type: 'error', message: err.response.data.message })
+    if (err.response.data.message === 'token校验失败') {
+      ElMessage({ type: 'error', message: '请登陆后重试！' })
+    } else {
+      ElMessage({ type: 'error', message: err.response.data.message })
+    }
+
     return Promise.reject(err)
   }
 )
