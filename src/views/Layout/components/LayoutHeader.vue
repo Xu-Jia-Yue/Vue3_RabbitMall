@@ -1,9 +1,22 @@
 <script setup lang="ts">
 import { useCategoryStore } from '@/stores/CategoryStore'
 import headerCart from './HeaderCart.vue'
-const categoryStore = useCategoryStore()
 import { useHomeStore } from '@/stores/HomeNav'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
+
+const router = useRouter()
+const categoryStore = useCategoryStore()
 const homeStore = useHomeStore()
+const searchInp = ref('')
+const searchPage = () => {
+  if (searchInp.value) {
+    router.push({ name: 'searchPage', params: { inp: searchInp.value } })
+  } else {
+    ElMessage({ type: 'warning', message: '请输入搜索内容' })
+  }
+}
 </script>
 
 <template>
@@ -31,8 +44,8 @@ const homeStore = useHomeStore()
         </li>
       </ul>
       <div class="search">
-        <i class="iconfont icon-search"></i>
-        <input type="text" placeholder="搜一搜" />
+        <i class="iconfont icon-search" @click="searchPage"></i>
+        <input type="text" v-model="searchInp" placeholder="搜一搜" @keydown.enter="searchPage" />
       </div>
       <!-- 头部购物车 -->
       <headerCart />

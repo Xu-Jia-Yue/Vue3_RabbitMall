@@ -22,8 +22,10 @@ const params = ref({
 // 获取用户订单数据
 const getUserOrder = async () => {
   const { result } = (await getUserOrderApi(params.value)) as any
-  orderList.value = result.items
-  total.value = result.counts
+  if (result) {
+    orderList.value = result?.items
+    total.value = result.counts
+  }
 }
 // 切换tab
 const tabChange = (type: any) => {
