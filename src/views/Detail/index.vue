@@ -7,11 +7,15 @@ import DetailHot from './components/DetailHot.vue'
 import DetailImg from './components/DetailImgs.vue'
 import XtxSku from '@/components/XtxSku/index.vue'
 import { ElMessage } from 'element-plus'
+
+const loading = ref(false)
 const route = useRoute()
 const goodsDetail = ref({}) as any
 const getGoodsDetail = async (id: string) => {
+  loading.value = true
   const { result } = (await getGoodsDetailApi(id)) as any
   goodsDetail.value = result
+  loading.value = false
 }
 // 添加购物车逻辑
 const cartStore = useCartStore()
@@ -47,7 +51,7 @@ onBeforeRouteUpdate((to) => {
 </script>
 
 <template>
-  <div class="xtx-goods-page" v-if="goodsDetail">
+  <div class="xtx-goods-page" v-if="goodsDetail" v-loading="loading">
     <div class="container" v-if="goodsDetail.details">
       <div class="bread-container">
         <el-breadcrumb separator=">">
@@ -160,6 +164,7 @@ onBeforeRouteUpdate((to) => {
 
 <style scoped lang="scss">
 .xtx-goods-page {
+  min-height: 600px;
   .goods-info {
     min-height: 600px;
     background: #fff;

@@ -4,11 +4,15 @@ import GoodsItem from '@/components/GoodsItem.vue'
 import { getHomeGoodsApi } from '@/apis/GoodsAPI'
 import { ref, onMounted } from 'vue'
 import { useHomeStore } from '@/stores/HomeNav'
+
+const loading = ref(false)
 const homeStore = useHomeStore()
 const goodsProduct = ref([]) as any
 const getGoods = async () => {
+  loading.value = true
   const { result } = (await getHomeGoodsApi()) as any
   goodsProduct.value = result
+  loading.value = false
 }
 onMounted(() => {
   getGoods()
@@ -17,7 +21,7 @@ onMounted(() => {
 
 <template>
   <div class="home-product">
-    <HomePanel :title="cate.name" v-for="cate in goodsProduct" :key="cate.id">
+    <HomePanel :title="cate.name" v-for="cate in goodsProduct" :key="cate.id" v-loading="loading">
       <div class="box">
         <RouterLink class="cover" :to="`category/${cate.id}`">
           <img :src="cate.picture" />
